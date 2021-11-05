@@ -6,10 +6,13 @@ namespace Carlson
     {
         internal Document acDoc = Application.DocumentManager.MdiActiveDocument;
 
-        public void CrdOpen(string filename = "test7.crd", int bOverwrite = 0, int crdType = 0)
+        public void CrdOpen(string filename = "", int bOverwrite = 0, int crdType = 0)
         {
-            string args = "(CrdOpen \"" + filename + "\" " + bOverwrite + " " + crdType +") ";
-            acDoc.SendStringToExecute(args, true, false, true);
+            if(filename != "")
+            {
+                string args = "(CrdOpen \"" + filename + "\" " + bOverwrite + " " + crdType + ") ";
+                acDoc.SendStringToExecute(args, true, false, true);
+            }            
         }
 
         public void CrdClose()
@@ -26,11 +29,8 @@ namespace Carlson
             acDoc.SendStringToExecute(args, true, false, true);
         }
 
-        public void CrdDraw()
+        public void CrdDraw(CrdDrawOptions cdo)
         {
-            CrdDrawOptions cdo = new CrdDrawOptions();
-            cdo.PointLayer.Value = "testLayer";
-            cdo.SymbolLayer.Value = "sybolLayer";
             string options = null;
 
             foreach (OptionPair op in cdo.OptionPairs)
