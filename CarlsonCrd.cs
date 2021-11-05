@@ -29,17 +29,20 @@ namespace Carlson
             acDoc.SendStringToExecute(args, true, false, true);
         }
 
-        public void CrdDraw(CrdDrawOptions cdo)
+        public void CrdDraw(CrdDrawOptions cdo = null)
         {
             string options = null;
-
-            foreach (OptionPair op in cdo.OptionPairs)
+            if(cdo != null)
             {
-                if(op.Value != "")
+                foreach (OptionPair op in cdo.OptionPairs)
                 {
-                    options += op.PairToString();
+                    if (op.Value != "")
+                    {
+                        options += op.PairToString();
+                    }
                 }
             }
+
             string args = "(CrdDraw '(\"Points\" \"ALL\" ";
             if(options != null)
             {
